@@ -5,8 +5,8 @@ node_modules/
 dist/
 .astro/
 
-# Vercel
-.vercel
+# Cloudflare
+.wrangler/
 
 # OS files
 Thumbs.db

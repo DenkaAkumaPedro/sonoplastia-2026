@@ -4,9 +4,9 @@ Landing page de lançamento do single **"Todos os Meses"**, do cantor e composit
 
 ## Preview
 
-O site já está publicado via GitHub Pages:
+O site já está publicado via Cloudflare Pages:
 
-**https://denkaakumapedro.github.io/sonoplastia-2026/**
+**https://sonoplastia-2026.pages.dev**
 
 ---
 
@@ -14,40 +14,22 @@ O site já está publicado via GitHub Pages:
 
 ```
 sonoplastia-2026/
-├── index.html              # Página principal (Hero, Sobre, Equipe, Galeria, Ficha Técnica)
-├── termos.html             # Termos de Uso
-├── privacidade.html        # Política de Privacidade & LGPD
-│
-├── css/
-│   └── style.css           # Design tokens + todos os estilos
-│
-├── js/
-│   ├── player.js           # Player de áudio customizado (modal)
-│   └── lightbox.js         # Lightbox da galeria de imagens
-│
-├── DATA/                   # Conteúdo-fonte e assets
-│   ├── images/             # Imagens do site (hero, equipe, galeria)
-│   │   └── Whatsapp/       # Fotos extras via WhatsApp (backup)
-│   ├── sounds/
-│   │   └── clovis-demo.mp3 # Áudio do single
-│   ├── artista/            # Markdown com biografia e música
-│   ├── equipe/             # Markdown com dados dos membros
-│   ├── ficha-tecnica/      # Créditos técnicos
-│   ├── galeria/            # Manifesto de imagens (YAML)
-│   ├── paginas/            # Termos de uso e privacidade (Markdown)
-│   ├── config.ts           # Schemas Zod (referência para Astro)
-│   └── footer.md           # Conteúdo do rodapé
-│
-├── .agents/specs/          # Especificações detalhadas do projeto
-│   ├── PROJECT_SPECIFICATION.md
-│   ├── FUNCTIONAL_SPECIFICATION.md
-│   ├── CONTENT_SPECIFICATION.md
-│   ├── TECHNICAL_SPECIFICATION.md
-│   ├── DESIGN_SPECIFICATION.md
-│   ├── SETUP_GUIDE.md
-│   └── TEXTOS_DO_SITE.md
-│
-├── AGENTS.md               # Instruções para agents de IA
+├── src/
+│   ├── pages/          # index.astro, termos.astro, privacidade.astro
+│   ├── layouts/        # BaseLayout.astro
+│   ├── components/     # Header, Hero, About, Team, Gallery, TechSpecs, Footer, AudioPlayer, Lightbox
+│   ├── content/        # artista/, equipe/, galeria/, ficha-tecnica/, paginas/
+│   ├── scripts/        # player.js, lightbox.js
+│   └── styles/         # global.css
+├── public/
+│   ├── images/         # 13 imagens
+│   ├── sounds/         # clovis-demo.mp3
+│   └── styles/         # global.css
+├── DATA/               # Conteúdo-fonte e specs (backup)
+├── astro.config.mjs    # Configuração do Astro
+├── tsconfig.json       # TypeScript config
+├── package.json        # Dependências
+├── AGENTS.md           # Instruções para agents de IA
 └── .gitignore
 ```
 
@@ -55,68 +37,46 @@ sonoplastia-2026/
 
 ## Como Usar
 
-### Visualizar o site localmente
-
-Não é necessário instalar nada. Basta abrir o `index.html` no navegador:
+### Desenvolvimento local
 
 ```bash
-# Opção 1: duplo-clique no arquivo
-# Windows
-start index.html
+# Instale as dependências
+npm install
 
-# macOS
-open index.html
-
-# Linux
-xdg-open index.html
+# Inicie o servidor de desenvolvimento
+npm run dev
+# Acesse http://localhost:4321
 ```
+
+### Build para produção
 
 ```bash
-# Opção 2: servidor local (recomendado para funcionamento completo do áudio)
-# Com Python
-python -m http.server 8080
-# Acesse http://localhost:8080
-
-# Com Node.js (npx)
-npx serve .
-# Acesse http://localhost:3000
+npm run build
+# Gera a pasta dist/
 ```
 
-> **Importante:** O player de áudio pode não funcionar corretamente ao abrir diretamente como `file://` devido a restrições de segurança do navegador. Use um servidor local para testar.
+### Preview do build
 
-### Publicar no GitHub Pages
+```bash
+npm run preview
+# Acesse http://localhost:4321
+```
 
-1. Faça fork ou clone deste repositório:
-   ```bash
-   git clone https://github.com/DenkaAkumaPedro/sonoplastia-2026.git
-   cd sonoplastia-2026
-   ```
+### Publicar no Cloudflare Pages
 
-2. Acesse as **Settings** do repositório no GitHub
+1. Faça push do repositório para o GitHub
+2. Acesse o [Cloudflare Dashboard](https://dash.cloudflare.com)
+3. Vá em **Workers & Pages** → **Create** → **Pages**
+4. Conecte o repositório GitHub (`DenkaAkumaPedro/sonoplastia-2026`)
+5. Configure:
+   - **Production branch:** `main`
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+   - **Framework preset:** Astro
+6. Clique em **Save and Deploy**
+7. O site estará em: `https://sonoplastia-2026.pages.dev`
 
-3. Vá em **Pages** (menu lateral esquerdo)
-
-4. Em **Source**, selecione:
-   - **Deploy from a branch**
-   - Branch: **main**
-   - Pasta: **/ (root)**
-
-5. Clique em **Save**
-
-6. Aguarde 1-2 minutos. O site estará em:
-   ```
-   https://<seu-usuario>.github.io/sonoplastia-2026/
-   ```
-
-### Publicar em outro hosting (Netlify, Vercel, etc.)
-
-O site é HTML/CSS/JS puro — qualquer hosting estático funciona:
-
-1. Faça push do repositório para o serviço desejado
-2. Configure:
-   - **Build command:** não necessário (ou deixe vazio)
-   - **Publish directory:** `/` (raiz do repositório)
-3. Pronto — o site será servido automaticamente
+> **Nota:** O Cloudflare Pages detecta automaticamente o Astro. A configuração acima é apenas para referência — o deploy automático funciona pushando para a branch `main`.
 
 ---
 
@@ -140,7 +100,7 @@ O site é HTML/CSS/JS puro — qualquer hosting estático funciona:
 
 ### Trocar imagens
 
-Substitua os arquivos em `DATA/images/` mantendo os mesmos nomes:
+Substitua os arquivos em `public/images/` mantendo os mesmos nomes:
 
 | Arquivo | Uso |
 |---|---|
@@ -153,23 +113,23 @@ Substitua os arquivos em `DATA/images/` mantendo os mesmos nomes:
 
 ### Trocar o áudio
 
-Substitua `DATA/sounds/clovis-demo.mp3` pelo novo arquivo MP3.
+Substitua `public/sounds/clovis-demo.mp3` pelo novo arquivo MP3.
 
 ### Editar textos
 
-Edite os arquivos Markdown em `DATA/`:
+Edite os arquivos Markdown em `src/content/`:
 
 | Arquivo | Conteúdo |
 |---|---|
-| `DATA/artista/index.md` | Hero, biografia e contatos |
-| `DATA/artista/musica.md` | Letra da música |
-| `DATA/equipe/*.md` | Dados de cada membro |
-| `DATA/ficha-tecnica/creditos.md` | Créditos técnicos |
-| `DATA/paginas/*.md` | Termos de uso e privacidade |
+| `src/content/artista/index.md` | Hero, biografia e contatos |
+| `src/content/artista/musica.md` | Letra da música |
+| `src/content/equipe/*.md` | Dados de cada membro |
+| `src/content/ficha-tecnica/creditos.md` | Créditos técnicos |
+| `src/content/paginas/*.md` | Termos de uso e privacidade |
 
 ### Trocar cores
 
-Edite as variáveis CSS no topo de `css/style.css`:
+Edite as variáveis CSS em `public/styles/global.css`:
 
 ```css
 :root {
@@ -201,9 +161,12 @@ As especificações detalhadas do projeto estão em `.agents/specs/`:
 
 ## Tecnologias
 
+- **Astro 5** — Framework estático com Content Collections
+- **TypeScript** — Tipagem estática
 - **HTML5** — semântico, acessível
 - **CSS3** — variáveis customizadas, Flexbox, Grid, mobile-first
 - **JavaScript ES6** — vanilla, sem bibliotecas externas
+- **Cloudflare Pages** — Deploy e hospedagem
 - **Áudio HTML5** — `<audio>` com player customizado
 
 ---
