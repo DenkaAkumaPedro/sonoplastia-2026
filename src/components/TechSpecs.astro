@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+
+const fichaEntries = await getCollection('ficha-tecnica');
+const ficha = fichaEntries[0];
+---
+
+<section class="tech-specs">
+  <div class="container">
+    <span class="eyebrow">{ficha?.data.eyebrow}</span>
+    <h2 class="section-title">{ficha?.data.heading}</h2>
+    <div class="tech-specs-grid">
+      <div class="tech-column">
+        <h3>Instrumentos e Músicos</h3>
+        <div class="tech-item">
+          <p class="tech-item-category">Vocais</p>
+          <p class="tech-item-details"><strong>Vocal Principal:</strong> Clóvis Ribeiro; <strong>Vocais de Apoio:</strong> Clóvis Ribeiro, Albert Jonnes</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Violões</p>
+          <p class="tech-item-details"><strong>Músico:</strong> Clóvis Ribeiro — Di Giorgio Vintage</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Guitarra</p>
+          <p class="tech-item-details"><strong>Músico:</strong> Clóvis Ribeiro — Stratocaster Custom<br><strong>Amplificação:</strong> Giannini U 75G 1974<br><strong>Efeito:</strong> Trêmolo Analógico Giannini 70's</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Baixo</p>
+          <p class="tech-item-details"><strong>Músico:</strong> Clóvis Ribeiro — Custom (Corpo Jennifer / Braço Giannini)</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Percussão</p>
+          <p class="tech-item-details"><strong>Bongô:</strong> Clóvis Ribeiro; <strong>Chocalho:</strong> Albert Jonnes</p>
+        </div>
+      </div>
+
+      <div class="tech-column">
+        <h3>Equipamento &amp; Produção</h3>
+        <div class="tech-item">
+          <p class="tech-item-category">Produção Técnica</p>
+          <p class="tech-item-details"><strong>Gravação, Mix e Master:</strong> Akin Labi Mendes, Albert Jonnes Carrer e Walmor Carvalho<br><strong>Arte-Educador:</strong> Jhonny Magi</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Gravadores de Fita</p>
+          <p class="tech-item-details">Tascam 424 (Anos 90), CCE 3 Head (Anos 80)</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Microfones</p>
+          <p class="tech-item-details">Shure SH 55, AKG P 120, AKG P 3S, Leson SM58</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-item-category">Mixer</p>
+          <p class="tech-item-details">Soundvoice MS16EUX</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-specs {
+    padding: 2rem 0;
+  }
+
+  .tech-specs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .tech-specs-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .tech-column :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .tech-item {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    transition: all 0.18s;
+  }
+
+  .tech-item:hover {
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .tech-item-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .tech-item-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .tech-item-details :global(strong) {
+    color: var(--text-primary);
+  }
+</style>

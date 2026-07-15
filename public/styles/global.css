@@ -1,0 +1,174 @@
+/* ============================================
+   SONOPLASTIA 2026 — Design Tokens & Global CSS
+   ============================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #0d3952;
+  --bg-secondary: #1b647a;
+  --bg-card: #288ea8;
+
+  /* Brand */
+  --primary: #4bcadb;
+  --primary-hover: #5fe6f0;
+  --secondary: #56ddc0;
+  --accent: #72f0ca;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #D9C9F0;
+  --text-muted: #BBA5DA;
+
+  /* Borders */
+  --border: rgb(0, 0, 0);
+
+  /* Buttons */
+  --btn-primary-bg: #1088FF;
+  --btn-primary-text: #FFFFFF;
+  --btn-secondary-bg: #72D9F0;
+  --btn-secondary-text: #2D0D52;
+
+  /* States */
+  --success: #2ECC71;
+  --warning: #F39C12;
+  --danger: #FF6B6B;
+
+  /* Complement (hover) */
+  --complement: #52260d;
+  --complement-soft: rgba(82, 38, 13, 0.35);
+
+  /* Utilities */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --radius: 24px;
+  --radius-sm: 16px;
+  --max: 1180px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--primary);
+  color: var(--bg-primary);
+  padding: 0.75rem 1.5rem;
+  z-index: 9999;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-sm) 0;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+  color: var(--bg-primary);
+}
+
+/* Container */
+.container {
+  width: min(calc(100% - 2rem), var(--max));
+  margin-inline: auto;
+}
+
+/* Section base */
+section {
+  padding: 1.5rem 0;
+}
+
+@media (min-width: 720px) {
+  section {
+    padding: 2rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    padding: 2.4rem 0;
+  }
+}
+
+/* Eyebrow */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 4px var(--accent); }
+  50% { box-shadow: 0 0 12px var(--accent), 0 0 20px var(--accent); }
+}
+
+/* Section Title */
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+/* Section Description */
+.section-desc {
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.7;
+}

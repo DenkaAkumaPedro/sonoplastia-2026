@@ -1,0 +1,105 @@
+---
+import { getCollection } from 'astro:content';
+
+const equipeEntries = await getCollection('equipe');
+const membros = equipeEntries
+  .filter(e => !e.data.title)
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+const coletivo = equipeEntries.find(e => e.data.title);
+---
+
+<section class="team">
+  <div class="container">
+    <span class="eyebrow">{coletivo?.data.eyebrow} &amp; Rede Daora</span>
+    <h2 class="section-title">{coletivo?.data.heading}</h2>
+    <p class="section-desc">
+      Estudantes do curso de sonoplastia que atuaram de forma conjunta em todas
+      as etapas de gravação, mixagem e masterização do single, sob a condução e
+      orientação do arte-educador <strong>Jhonny Magi</strong>. Aqui, as trajetórias
+      individuais se somam em uma entrega técnica coletiva.
+    </p>
+    <div class="team-grid">
+      {membros.map((membro) => (
+        <div class="team-card">
+          <div class="team-card-avatar">
+            <img src={`/${membro.data.image}`} alt={membro.data.name} loading="lazy">
+          </div>
+          <h3 class="team-card-name">{membro.data.name}</h3>
+          <p class="team-card-role">{membro.data.age ? `${membro.data.age} — ` : ''}{membro.data.role}</p>
+          <p class="team-card-bio">{membro.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team {
+    padding: 2rem 0;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .team-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--complement);
+    box-shadow: 0 8px 24px var(--complement-soft);
+    background: linear-gradient(145deg, rgba(82, 38, 13, 0.12), rgba(255, 255, 255, 0.04));
+  }
+
+  .team-card-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    border: 3px solid var(--primary);
+    box-shadow: 0 0 16px rgba(75, 202, 219, 0.25);
+  }
+
+  .team-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-card-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .team-card-role {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .team-card-bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

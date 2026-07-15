@@ -1,0 +1,146 @@
+---
+import { getCollection } from 'astro:content';
+
+const artistaEntries = await getCollection('artista');
+const artista = artistaEntries.find(e => e.data.section === 'hero');
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">{artista?.data.heroEyebrow}</span>
+        <h1 class="hero-title">{artista?.data.heroTitle}</h1>
+        <p class="hero-desc">
+          O novo single <strong>"Todos os Meses"</strong>, do cantor e compositor Clóvis Ribeiro,
+          celebra a entrega artística e a maturidade técnica da turma de Sonoplastia da
+          <a href="https://rededaora.imelc.com.br/" target="_blank" rel="noopener noreferrer">Rede Daora</a>.
+          Uma produção fonográfica única que une a sensibilidade musical do artista com a precisão
+          dos alunos na captação, mixagem e masterização em estúdio.
+        </p>
+        <button class="btn-primary" id="open-player" aria-haspopup="dialog" aria-controls="audio-modal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+          Ouça o Single
+        </button>
+      </div>
+      <div class="hero-image-wrap">
+        <img src={`/${artista?.data.heroImage}`} alt={artista?.data.heroImageAlt} loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 720px) {
+    .hero-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+    }
+  }
+
+  .hero-content {
+    order: 2;
+  }
+
+  @media (min-width: 720px) {
+    .hero-content {
+      order: 1;
+    }
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
+  }
+
+  .hero-desc :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .hero-desc :global(a:hover) {
+    color: var(--primary-hover);
+  }
+
+  .hero-image-wrap {
+    order: 1;
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  @media (min-width: 720px) {
+    .hero-image-wrap {
+      order: 2;
+    }
+  }
+
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95) contrast(1.08) brightness(0.95);
+  }
+
+  .hero-image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(13, 57, 82, 0.3), transparent 60%);
+    pointer-events: none;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #1088FF, #0070E0);
+    color: var(--btn-primary-text);
+    padding: 0.95rem 1.2rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(16, 136, 255, 0.35);
+    transition: all 0.18s;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    background: #10ffff;
+    color: #000000;
+    box-shadow: 0 12px 28px rgba(16, 255, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary :global(svg) {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+</style>

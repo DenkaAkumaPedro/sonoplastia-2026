@@ -1,0 +1,140 @@
+---
+import lightboxScript from '../scripts/lightbox.js?url';
+---
+
+<div class="lightbox-overlay" id="lightbox-overlay" role="dialog" aria-label="Galeria de imagens" aria-hidden="true">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Fechar galeria">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Imagem anterior">&#8249;</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Próxima imagem">&#8250;</button>
+</div>
+
+<script src={lightboxScript}></script>
+
+<style>
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(15, 5, 27, 0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .lightbox-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-content img {
+    max-height: 70vh;
+    max-width: 90vw;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+  }
+
+  .lightbox-overlay.active .lightbox-content img {
+    transform: scale(1);
+  }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 210;
+    transition: all 0.18s;
+  }
+
+  .lightbox-close:hover {
+    background: var(--complement);
+    border-color: var(--complement);
+    transform: rotate(90deg);
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 210;
+    transition: all 0.18s;
+  }
+
+  .lightbox-nav:hover {
+    background: var(--complement);
+    border-color: var(--complement);
+  }
+
+  .lightbox-prev {
+    left: 1rem;
+  }
+
+  .lightbox-next {
+    right: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .lightbox-nav {
+      top: auto;
+      bottom: 1rem;
+      transform: none;
+    }
+    .lightbox-prev {
+      left: calc(50% - 3rem);
+    }
+    .lightbox-next {
+      right: calc(50% - 3rem);
+    }
+  }
+</style>

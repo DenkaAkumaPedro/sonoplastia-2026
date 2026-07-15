@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+
+const artistaEntries = await getCollection('artista');
+const artista = artistaEntries.find(e => e.data.section === 'hero');
+---
+
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        <img src={`/${artista?.data.aboutImage}`} alt={artista?.data.aboutImageAlt} loading="lazy">
+      </div>
+      <div class="about-text">
+        <span class="eyebrow">{artista?.data.aboutEyebrow}</span>
+        <h2 class="section-title">{artista?.data.aboutTitle}</h2>
+        <p>
+          Cantor, compositor, radialista, escritor, jornalista e diretor musical do
+          Grupo Cultura e Vida na Terceira Idade na Casa de Cultura do Butantã, ele
+          traz uma sensibilidade única que acolhe a técnica.
+        </p>
+        <p>
+          A música atravessa a estética do estúdio com personalidade própria: íntima
+          na interpretação, ampla na produção e precisa na finalização. É um release
+          que traduz maturidade sonora e cuidado editorial em cada detalhe.
+        </p>
+        <div class="contact-pills">
+          <a href={`tel:${artista?.data.contacts?.phone}`} class="contact-pill" aria-label={`Telefone: ${artista?.data.contacts?.phone}`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.58 1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+            (11) 99202-5160
+          </a>
+          <a href={`mailto:${artista?.data.contacts?.email}`} class="contact-pill" aria-label="E-mail">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            E-mail
+          </a>
+          <a href={artista?.data.contacts?.soundcloud} class="contact-pill" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 18V13h1v5zm2.5 0V11h1v7zm2.5 0V9h1v9zm2.5 0V11h1v7zm2.5 0V7h1v11zm2.5 0V9h1v9zm2.5 0V5h1a4 4 0 014 4v9h-1V9.5a2.5 2.5 0 00-2.5-2.5h-1V18z"/></svg>
+            SoundCloud
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 2rem 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 720px) {
+    .about-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+    }
+  }
+
+  .about-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .about-image img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .about-text :global(p) {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .about-text :global(strong) {
+    color: var(--text-primary);
+  }
+
+  .contact-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+  }
+
+  .contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+
+  .contact-pill :global(svg) {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+
+  .contact-pill:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--complement);
+    box-shadow: 0 0 0 1px var(--complement);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+  }
+</style>

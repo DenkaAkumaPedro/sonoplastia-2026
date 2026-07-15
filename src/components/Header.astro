@@ -1,0 +1,72 @@
+---
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="header-brand" aria-label="Projeto fonográfico">
+      <span class="brand-dot" aria-hidden="true"></span>
+      Sonoplastia 2026
+    </a>
+    <a href="https://rededaora.imelc.com.br/" class="header-link" target="_blank" rel="noopener noreferrer" aria-hidden="true">
+      Rede Daora
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: rgba(13, 57, 82, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.8rem 0;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .header-brand:hover {
+    color: var(--text-primary);
+  }
+
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 0 8px var(--primary);
+  }
+
+  .header-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: all 0.18s;
+  }
+
+  .header-link:hover {
+    background: var(--complement);
+    border-color: var(--complement);
+    color: var(--text-primary);
+    box-shadow: 0 4px 12px var(--complement-soft);
+  }
+</style>
